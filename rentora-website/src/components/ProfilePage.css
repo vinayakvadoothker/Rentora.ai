@@ -1,0 +1,57 @@
+/* ProfilePage.css */
+.profile-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .profile-image-container {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .profile-image {
+    width: 100px; /* Adjust the size as needed */
+    height: 100px; /* Adjust the size as needed */
+    border-radius: 50%; /* Make it circular */
+  }
+  
+  .edit-image-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+  
+  .user-name-container {
+    margin-bottom: 10px;
+  }
+  
+  .user-name {
+    font-size: 24px; /* Adjust the size as needed */
+  }
+  
+  .contact-info-container {
+    margin-bottom: 20px;
+  }
+  
+  .contact-info {
+    font-size: 16px; /* Adjust the size as needed */
+  }
+  
+  .housing-preferences-container {
+    margin-top: 20px;
+  }
+  
+  .housing-preferences-heading {
+    font-size: 18px; /* Adjust the size as needed */
+  }
+  
+  .housing-preferences-text {
+    font-size: 16px; /* Adjust the size as needed */
+  }
+  

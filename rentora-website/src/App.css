@@ -1,0 +1,139 @@
+/* App.css */
+
+body {
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+nav ul li a.active {
+  text-decoration: underline;
+}
+nav {
+  background-color: #33333300;
+  padding: 30px;
+}
+
+ul {
+  list-style-type: none;
+  margin: auto; /* Center horizontally */
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+}
+
+li {
+  display: flex;
+  align-items: center; /* Center vertically */
+  margin: auto; /* Center horizontally */
+
+}
+
+a {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  font-size: 30px;
+  font-family: monospace;
+  font-style: normal;
+  line-height: normal;
+  font-weight: 10;
+}
+
+.sign-out-button {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  background-color: #c9c9c9;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: monospace;
+  font-style: normal;
+  line-height: normal;
+  font-weight: 10;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.app-container {
+  background-image: url('./components/images/background.jpg'); /* Adjust the path accordingly */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 100vh;
+  /* Add any additional styles if necessary */
+}
+
+.header-title {
+  width: 857px;
+  height: 240px;
+  margin: auto; /* Center horizontally */
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  flex-shrink: 0;
+  color: #EBE1E9;
+  text-align: center;
+  font-family: monospace;
+  font-size: 120px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.dashboard-title {
+  width: 857px;
+  height: 240px;
+  margin: auto; /* Center horizontally */
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  flex-shrink: 0;
+  color: #EBE1E9;
+  text-align: center;
+  font-family: monospace;
+  font-size: 90;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.get-started-btn {
+  width: 275px;
+  height: 80px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  background: #2E2F5B;
+  color: #EBE1E9;
+  text-align: center;
+  font-family: monospace;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 80px; /* Vertically center text */
+  text-decoration: none;
+  display: block; /* Make it a block element for the width and height to take effect */
+  margin: 475px auto; /* Center horizontally and add margin */
+  /* Add any additional styles if necessary */
+}
+
+.close-button {
+  position: absolute;
+  background: #ffffff00; /* Button background color */
+  color: #2E2F5B; /* Button text color */
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.clerk-signin-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Ensure it takes the full height of the container */
+  margin: 0 auto; /* Center the container horizontally */
+  font-family: monospace;
+  font-size: 24px;
+  font-weight: 500;
+}
+
