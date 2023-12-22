@@ -1,9 +1,6 @@
 // OffCampusPage.js
 import React, { useState, useEffect } from 'react';
-import { useClerk } from '@clerk/clerk-react';
-import { Route, Routes, Link, Navigate } from 'react-router-dom';
-import { db } from "../config";
-import { useUser } from "@clerk/clerk-react";
+import { Route, Routes } from 'react-router-dom';
 import OffCampusHousingFormStep1 from './OffCampusFormSteps/OffCampusHousingFormStep1';
 import OffCampusHousingFormStep2 from './OffCampusFormSteps/OffCampusHousingFormStep2';
 import OffCampusHousingFormStep3 from './OffCampusFormSteps/OffCampusHousingFormStep3';
@@ -12,36 +9,7 @@ import OffCampusHousingFormStep5 from './OffCampusFormSteps/OffCampusHousingForm
 import OffCampusHousingFormStep6 from './OffCampusFormSteps/OffCampusHousingFormStep6';
 
 const OffCampusPage = () => {
-  const { user } = useUser();
-  const saveAnswer = (event) => {
-
-      event.preventDefault();
-    
-      const elementsArray = [...event.target.elements];
-    
-      const formData = elementsArray.reduce((accumulator, currentValue) => {
-        if (currentValue.id) {
-          accumulator[currentValue.id] = currentValue.value;
-        }
-    
-        return accumulator;
-      }, {});
-        if (user) {
-            // Access the Clerk user ID
-            const clerkUserID = user.id;
-            console.log("Clerk User ID:", clerkUserID);
-          
-            // Now you can use the clerkUserID as needed in your application
-          } else {
-            // User is not authenticated, handle accordingly
-            console.log("User not authenticated");
-          }
-          db.collection('SurveyResponses').doc(user.id).set(formData);
-      
-          //db.collection("SurveyResponses").add(formData);
-        };
   const [isFormCompleted, setFormCompleted] = useState(false);
-  const { session } = useClerk();
 
   useEffect(() => {
     // You can implement additional logic here if needed

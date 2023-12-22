@@ -46,7 +46,7 @@ const OffCampusHousingFormStep5 = () => {
       file: file,
     });
   };
-
+/** 
   const uploadClerkProfileImage = async () => {
     try {
       const clerkProfileImageURL = user?.imageUrl
@@ -76,7 +76,7 @@ const OffCampusHousingFormStep5 = () => {
       console.error("Error updating document: ", error);
     }
   };
-  
+  */
 
   const handleNext = async () => {
     if (user) {

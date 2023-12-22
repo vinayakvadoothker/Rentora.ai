@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
-import { ClerkLoaded, SignedIn, SignedOut, SignIn, useClerk } from "@clerk/clerk-react";
+import {SignedOut, SignIn, useClerk } from "@clerk/clerk-react";
 import { useNavigate } from 'react-router-dom';
-import Dashboard from './Dashboard';
 
 const SignupSignInPopup = ({ onClose }) => {
   const navigate = useNavigate();
   const { session } = useClerk();
-  const isSignedIn = session && session.user;
 
   const handleCloseClick = () => {
     onClose();

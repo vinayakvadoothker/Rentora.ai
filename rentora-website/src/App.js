@@ -1,7 +1,7 @@
 // App.js
 import React from 'react';
 import { ClerkProvider, SignedIn, SignedOut, useClerk } from '@clerk/clerk-react';
-import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter as Route, Routes, Navigate, Link } from 'react-router-dom';
 import Dashboard from './components/Dashboard'; // Import Dashboard component
 import OnboardingPage from './components/OnboardingPage'; // Import OnboardingPage component
 import BuyPage from './components/BuyPage'; // Import BuyPage component
