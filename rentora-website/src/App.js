@@ -1,7 +1,7 @@
 // App.js
 import React from 'react';
 import { ClerkProvider, SignedIn, SignedOut, useClerk } from '@clerk/clerk-react';
-import { BrowserRouter as Route, Routes, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom';
 import Dashboard from './components/Dashboard'; // Import Dashboard component
 import OnboardingPage from './components/OnboardingPage'; // Import OnboardingPage component
 import BuyPage from './components/BuyPage'; // Import BuyPage component
@@ -68,15 +68,15 @@ const Header = () => {
             </Link>
             {/* Profile picture dropdown */}
             <div id="profileDropdown" style={styles.dropdownContent}>
-            {/* Profile tab */}
-            <div style={styles.dropdownItem} onClick={() => { window.location.href = '/profile'; }}>
-              <span style={styles.cursorPointer}>Profile</span>
+              {/* Profile tab */}
+              <div style={styles.dropdownItem} onClick={() => { window.location.href = '/profile'; }}>
+                <span style={styles.cursorPointer}>Profile</span>
+              </div>
+              {/* Sign Out option */}
+              <div style={styles.dropdownItem} onClick={() => { handleSignOut(); window.location.href = '/onboarding'; }}>
+                <span style={styles.cursorPointer}>Sign Out</span>
+              </div>
             </div>
-            {/* Sign Out option */}
-            <div style={styles.dropdownItem} onClick={() => { handleSignOut(); window.location.href = '/onboarding'; }}>
-              <span style={styles.cursorPointer}>Sign Out</span>
-            </div>
-          </div>
           </li>
         </SignedIn>
       </ul>
@@ -141,11 +141,20 @@ const App = () => {
           <Route path="/profile" element={<ProfilePage />} />
           <Route
             path="*"
-            element={<SignedOut><Navigate to="/onboarding" replace /></SignedOut>}
+            element={<SignedIn><Navigate to="/dashboard" replace /></SignedIn>}
           />
-          {/* The catch-all route for signed-in users */}
+
+
+        </Routes>
+        <Routes>
           <Route
             path="*"
+            element={<SignedOut><Navigate to="/onboarding" replace /></SignedOut>}
+          />
+        </Routes>
+        <Routes>
+          <Route
+            path="/onboarding"
             element={<SignedIn><Navigate to="/dashboard" replace /></SignedIn>}
           />
         </Routes>
