@@ -79,36 +79,40 @@ const OffCampusHousingFormStep5 = () => {
   
 
   const handleNext = async () => {
-    const newFormData = {
-      profilePicture: formData.profilePicture !== undefined ? formData.profilePicture : user?.imageUrl ?? 'url_to_default_image.jpg',
-    };
-
     if (user) {
       const clerkUserID = user.id;
       console.log("Clerk User ID:", clerkUserID);
-
-      if (formData.file) {
-        const storageRef = storage.ref(`userProfilePictures/${user.id}/${formData.file.name}`);
-        storageRef.put(formData.file).then(async (snapshot) => {
-          console.log('File uploaded successfully!', snapshot);
-
-          const downloadURL = await storageRef.getDownloadURL();
-          newFormData.profilePicture = downloadURL;
-
-          await db.collection('SurveyResponses').doc(user.id).update(newFormData);
-          console.log("Document successfully updated!");
-        }).catch((error) => {
-          console.error("Error uploading file: ", error);
-        });
-      } else {
-        await uploadClerkProfileImage();
-      }
+  
+      const newFormData = {
+        profilePicture: formData.file
+          ? await uploadFileToStorage(user.id, formData.file)
+          : user?.imageUrl ?? 'url_to_default_image.jpg',
+      };
+  
+      await db.collection('SurveyResponses').doc(user.id).update(newFormData);
+      console.log("Document successfully updated!");
     } else {
       console.log("User not authenticated");
     }
-
+  
     navigate('/rent/off-campus/step6');
   };
+  
+  const uploadFileToStorage = async (userId, file) => {
+    const storageRef = storage.ref(`userProfilePictures/${userId}/${file.name}`);
+    try {
+      const snapshot = await storageRef.put(file);
+      console.log('File uploaded successfully!', snapshot);
+  
+      const downloadURL = await storageRef.getDownloadURL();
+      return downloadURL;
+    } catch (error) {
+      console.error("Error uploading file: ", error);
+      return 'url_to_default_image.jpg'; // fallback to default image URL
+    }
+  };
+  
+  
 
   return (
     <div className="form-container" style={{ marginTop: '35px' }}>
