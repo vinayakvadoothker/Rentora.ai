@@ -4,14 +4,14 @@ import { db } from "../../config";
 import { useUser } from "@clerk/clerk-react";
 import './styles.css'; // Import the CSS file
 
-const OffCampusHousingFormStep6 = () => {
+const OffCampusHousingFormStep7 = () => {
   const { user } = useUser();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
 
   // Initialize state with default values
   const [formData, setFormData] = useState({
-    college: '',
+    studentId: '',
   });
 
   useEffect(() => {
@@ -32,60 +32,48 @@ const OffCampusHousingFormStep6 = () => {
   }, [user]);
 
   const saveAnswer = () => {
-    // Save the selected college to the database
-    if (user && formData.college !== '') {
+    // Save the student ID to the database
+    if (user && /^[0-9]+$/.test(formData.studentId)) {
       db.collection('SurveyResponses')
         .doc(user.id)
-        .update({ college: formData.college })
+        .update({ studentId: formData.studentId })
         .then(() => {
           console.log("Document successfully updated!");
-          // Navigate to the next step (Step 7)
-          navigate('/rent/off-campus/step7');
+          // Navigate to the next step (Step 8 or any other step)
+          navigate('/rent/off-campus/step8');
         })
         .catch((error) => {
           console.error("Error updating document: ", error);
         });
     } else {
-      setErrorMessage("Please select a valid college");
+      setErrorMessage("Please input a valid numeric Student ID");
     }
   };
 
-
-  const isNextButtonDisabled = formData.college === 'Select A College'; // Disable if the default option is selected
+  const isNextButtonDisabled = formData.studentId === '' || !/^[0-9]+$/.test(formData.studentId);
 
   return (
     <div className="form-container">
-      <h2 className="step-title">College Affiliation</h2>
-      <p className="step-description">Select your college:</p>
+      <h2 className="step-title">What Is Your {formData.schoolName} ID #</h2>
+      <p className="step-description">Please input your college ID:</p>
 
-      {/* Dropdown for selecting the college */}
-      <select
-        id="college"
+      {/* Input field for entering the student ID */}
+      <input
+        type="text"
+        id="studentId"
         className="input-field"
-        value={formData.college}
+        value={formData.studentId}
         onChange={(e) => {
           setFormData((prevData) => ({
             ...prevData,
-            college: e.target.value,
+            studentId: e.target.value,
           }));
-          setErrorMessage(''); // Clear error message when the user makes a selection
+          setErrorMessage('Please input a valid numeric Student ID'); // Clear error message when the user makes an input
         }}
-      >
-        <option value="">Select a College</option>
-        <option value="Cowell College">Cowell College</option>
-        <option value="Stevenson College">Stevenson College</option>
-        <option value="Merrill College">Merrill College</option>
-        <option value="Crown College">Crown College</option>
-        <option value="College 9">College 9</option>
-        <option value="John R. Lewis College">John R. Lewis College</option>
-        <option value="Kresge College">Kresge College</option>
-        <option value="Porter College">Porter College</option>
-        <option value="Rachel Carson College">Rachel Carson College</option>
-        <option value="Oakes College">Oakes College</option>
-      </select>
+      />
 
       {/* Back button to navigate to the previous step */}
-      <Link to="/rent/off-campus/step5">
+      <Link to="/rent/off-campus/step6">
         <span className="back-button">{'<-'}</span>
       </Link>
 
@@ -104,4 +92,4 @@ const OffCampusHousingFormStep6 = () => {
   );
 };
 
-export default OffCampusHousingFormStep6;
+export default OffCampusHousingFormStep7;

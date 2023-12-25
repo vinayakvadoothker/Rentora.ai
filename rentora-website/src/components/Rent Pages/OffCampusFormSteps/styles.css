@@ -1,77 +1,164 @@
-/* styles.css */
+/* Your existing styles */
+
 /* Global styles for the form container */
 .form-container {
-    max-width: 600px;
-    margin: auto;
-    padding: 50px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
-  /* Styles for step titles */
-  .step-title {
-    font-size: 24px;
-    margin-bottom: 10px;
-    font-weight: bold;
-    font-family: monospace;
-  }
-  
-  /* Styles for step descriptions */
-  .step-description {
-    font-size: 16px;
-    margin-bottom: 20px;
-    font-weight: bold;
-    font-family: monospace;
-  }
-  
-  /* Styles for input fields */
-  .input-field {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    font-weight: bold;
-    font-family: monospace;
-  }
-  
-  /* Styles for the next and back button */
-  .next-button {
-    background-color: #2E2F5B;
-    color: white;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    font-family: monospace;
-  }
-  .back-button {
-    color: rgb(0, 0, 0);
-    padding: 10px;
-    cursor: pointer;
-    font-family: monospace;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  .file-input-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transform: translate(30%,10%);
-  }
-  
-  .image-preview {
-    width: 100px; /* Set the desired width */
-    height: 100px; /* Set the desired height */
-    border-radius: 50%;
-    object-fit: cover;
-  }
+  max-width: 600px;
+  margin: auto;
+  padding: 50px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Styles for step titles */
+.step-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+/* Styles for step descriptions */
+.step-description {
+  font-size: 16px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+/* Styles for input fields */
+.input-field {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+/* Styles for the next and back button */
+.next-button {
+  background-color: #2E2F5B;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+.back-button {
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  cursor: pointer;
+  font-family: monospace;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.file-input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translate(30%, 10%);
+}
+
+.image-preview {
+  width: 100px; /* Set the desired width */
+  height: 100px; /* Set the desired height */
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Styles for the date picker container */
+.date-picker-container {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker {
+  font-family: monospace;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.react-datepicker__header {
+  background-color: #2E2F5B;
+  color: #EBE1E9;
+}
+
+.react-datepicker__month {
+  margin: 0;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day {
+  width: 30px;
+  line-height: 30px;
+  margin: 2px;
+}
+
+.react-datepicker__day--selected {
+  background-color: #2E2F5B;
+  color: #EBE1E9;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: #2E2F5B;
+  color: #EBE1E9;
+}
+
+.react-datepicker__time-container {
+  display: none !important;
+}
+
+.react-datepicker__today-button {
+  border: none;
+  background: none;
+  color: #2E2F5B;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.react-datepicker__today-button:hover {
+  text-decoration: underline;
+}
 
 
+.form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
 
-  
+.form-row label {
+  margin-right: 10px;
+}
+
+.end-label {
+  margin-left: 10px;
+}
+
+.add-another-container {
+  text-align: left;
+  margin-bottom: 10px; /* Adjust as needed */
+}

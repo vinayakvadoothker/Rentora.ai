@@ -7,6 +7,13 @@ import OffCampusHousingFormStep3 from './OffCampusFormSteps/OffCampusHousingForm
 import OffCampusHousingFormStep4 from './OffCampusFormSteps/OffCampusHousingFormStep4';
 import OffCampusHousingFormStep5 from './OffCampusFormSteps/OffCampusHousingFormStep5';
 import OffCampusHousingFormStep6 from './OffCampusFormSteps/OffCampusHousingFormStep6';
+import OffCampusHousingFormStep7 from './OffCampusFormSteps/OffCampusHousingFormStep7';
+import OffCampusHousingFormStep8 from './OffCampusFormSteps/OffCampusHousingFormStep8';
+import OffCampusHousingFormStep9 from './OffCampusFormSteps/OffCampusHousingFormStep9';
+import OffCampusHousingFormStep10 from './OffCampusFormSteps/OffCampusHousingFormStep10';
+import OffCampusHousingFormStep11 from './OffCampusFormSteps/OffCampusHousingFormStep11';
+import OffCampusHousingFormStep12 from './OffCampusFormSteps/OffCampusHousingFormStep12';
+
 
 const OffCampusPage = () => {
   const [isFormCompleted, setFormCompleted] = useState(false);
@@ -32,6 +39,13 @@ const OffCampusPage = () => {
           <Route path="step4" element={<OffCampusHousingFormStep4 onComplete={completeForm} />} />
           <Route path="step5" element={<OffCampusHousingFormStep5 onComplete={completeForm} />} />
           <Route path="step6" element={<OffCampusHousingFormStep6 onComplete={completeForm} />} />
+          <Route path="step7" element={<OffCampusHousingFormStep7 onComplete={completeForm} />} />
+          <Route path="step8" element={<OffCampusHousingFormStep8 onComplete={completeForm} />} />
+          <Route path="step9" element={<OffCampusHousingFormStep9 onComplete={completeForm} />} />
+          <Route path="step10" element={<OffCampusHousingFormStep10 onComplete={completeForm} />} />
+          <Route path="step11" element={<OffCampusHousingFormStep11 onComplete={completeForm} />} />
+          <Route path="step12" element={<OffCampusHousingFormStep12 onComplete={completeForm} />} />
+
         </Routes>
       </div>
     );
