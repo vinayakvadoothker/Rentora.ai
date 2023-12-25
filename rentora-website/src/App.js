@@ -17,6 +17,7 @@ if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
 }
 
 const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
+const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 const Header = () => {
   const { user, signOut } = useClerk();
@@ -115,7 +116,7 @@ const Home = () => {
 const App = () => {
   return (
     <div className="app-container">
-      <ClerkProvider publishableKey={clerkPubKey}>
+      <ClerkProvider publishableKey={clerkPubKey} googleMapsApiKey={googleMapsApiKey}>
         <SignedIn>
           <Header />
         </SignedIn>

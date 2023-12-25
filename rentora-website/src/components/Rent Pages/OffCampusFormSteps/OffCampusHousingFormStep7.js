@@ -7,11 +7,11 @@ import './styles.css'; // Import the CSS file
 const OffCampusHousingFormStep7 = () => {
   const { user } = useUser();
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState('');
 
   // Initialize state with default values
   const [formData, setFormData] = useState({
     studentId: '',
+    schoolName: '', // Add schoolName to formData
   });
 
   useEffect(() => {
@@ -39,18 +39,31 @@ const OffCampusHousingFormStep7 = () => {
         .update({ studentId: formData.studentId })
         .then(() => {
           console.log("Document successfully updated!");
-          // Navigate to the next step (Step 8 or any other step)
-          navigate('/rent/off-campus/step8');
+          // Navigate to the next step based on schoolName
+          if (formData.schoolName === 'UC Santa Cruz') {
+            navigate('/rent/off-campus/step8'); // Redirect to Step 8
+          } else {
+            navigate('/rent/off-campus/step5'); // Redirect to Step 5
+          }
         })
         .catch((error) => {
           console.error("Error updating document: ", error);
         });
-    } else {
-      setErrorMessage("Please input a valid numeric Student ID");
     }
   };
 
-  const isNextButtonDisabled = formData.studentId === '' || !/^[0-9]+$/.test(formData.studentId);
+  const handleInputChange = (e) => {
+    // Allow only numbers to be typed
+    const inputValue = e.target.value;
+    if (/^[0-9]*$/.test(inputValue)) {
+      setFormData((prevData) => ({
+        ...prevData,
+        studentId: inputValue,
+      }));
+    }
+  };
+
+  const isNextButtonDisabled = formData.studentId === '';
 
   return (
     <div className="form-container">
@@ -63,22 +76,13 @@ const OffCampusHousingFormStep7 = () => {
         id="studentId"
         className="input-field"
         value={formData.studentId}
-        onChange={(e) => {
-          setFormData((prevData) => ({
-            ...prevData,
-            studentId: e.target.value,
-          }));
-          setErrorMessage('Please input a valid numeric Student ID'); // Clear error message when the user makes an input
-        }}
+        onChange={handleInputChange}
       />
 
       {/* Back button to navigate to the previous step */}
-      <Link to="/rent/off-campus/step6">
+      <Link to={formData.schoolName === 'UC Santa Cruz' ? "/rent/off-campus/step6" : "/rent/off-campus/step5"}>
         <span className="back-button">{'<-'}</span>
       </Link>
-
-      {/* Display error message if any */}
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       {/* Button to submit the form and navigate to the next step */}
       <button

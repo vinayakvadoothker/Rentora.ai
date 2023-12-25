@@ -12,6 +12,7 @@ const OffCampusHousingFormStep6 = () => {
   // Initialize state with default values
   const [formData, setFormData] = useState({
     college: '',
+    schoolName: '', // Add schoolName to formData
   });
 
   useEffect(() => {
@@ -31,6 +32,13 @@ const OffCampusHousingFormStep6 = () => {
     }
   }, [user]);
 
+  useEffect(() => {
+    // Check if the schoolName is not UC Santa Cruz, then navigate to the next step
+    if (formData.schoolName !== 'UC Santa Cruz' && formData.schoolName !== '') {
+      navigate('/rent/off-campus/step7'); // Navigate to the next step
+    }
+  }, [formData.schoolName, navigate]);
+
   const saveAnswer = () => {
     // Save the selected college to the database
     if (user && formData.college !== '') {
@@ -49,7 +57,6 @@ const OffCampusHousingFormStep6 = () => {
       setErrorMessage("Please select a valid college");
     }
   };
-
 
   const isNextButtonDisabled = formData.college === 'Select A College'; // Disable if the default option is selected
 

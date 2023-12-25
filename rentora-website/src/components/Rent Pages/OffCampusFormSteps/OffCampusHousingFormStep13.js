@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { db } from "../../config";
 import { useUser } from "@clerk/clerk-react";
+import PlacesAutocomplete from 'react-places-autocomplete';
 import './styles.css'; // Import the CSS file
 
-const OffCampusHousingFormStep12 = () => {
+const OffCampusHousingFormStep13 = () => {
     const { user } = useUser();
     const navigate = useNavigate();
     const [errorMessage] = useState('');
     const [formData, setFormData] = useState({
-        activitiesHistory: [],
+        rentalHistory: [],
     });
 
     useEffect(() => {
@@ -22,7 +23,7 @@ const OffCampusHousingFormStep12 = () => {
                     if (doc.exists) {
                         setFormData(prevData => ({
                             ...prevData,
-                            activitiesHistory: doc.data().activitiesHistory || [],
+                            rentalHistory: doc.data().rentalHistory || [],
                         }));
                     }
                 })
@@ -36,32 +37,64 @@ const OffCampusHousingFormStep12 = () => {
         return isPresent || (start && end && new Date(start) <= new Date(end));
     };
 
+    const formatCurrency = (value) => {
+        // Convert the value to a number
+        const numericValue = parseFloat(value.replace(/[^0-9.]/g, ''));
+
+        // Check if it's a valid number
+        if (!isNaN(numericValue)) {
+            // Format the number as currency (USD) with commas
+            return numericValue.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+            });
+        }
+
+        // If the value is not a valid number, return it as is
+        return value;
+    };
+
+
+    const handleAddressChange = (address, index) => {
+        setFormData((prevData) => {
+            const updatedRentalHistory = [...prevData.rentalHistory];
+            updatedRentalHistory[index].address = address;
+            return {
+                ...prevData,
+                rentalHistory: updatedRentalHistory,
+            };
+        });
+    };
+
     const saveAnswer = () => {
         // Validate dates before updating the document
-        const isValid = formData.activitiesHistory.length === 0 ||
-            formData.activitiesHistory.every(entry =>
+        const isValid = formData.rentalHistory.length === 0 ||
+            formData.rentalHistory.every(entry =>
                 validateDates(entry.startDate, entry.endDate, entry.present)
             );
-
+    
         if (isValid) {
             const formattedData = {
-                activitiesHistory: formData.activitiesHistory.map(entry => ({
-                    organization: entry.organization,
-                    title: entry.title,
+                rentalHistory: formData.rentalHistory.map(entry => ({
+                    address: entry.address,
+                    monthlyRent: entry.monthlyRent,
                     startDate: entry.startDate,
                     endDate: entry.present ? 'Present' : entry.endDate,
                     present: entry.present,
                 })),
             };
-
+    
             console.log("Formatted Data:", formattedData);
-
+    
             db.collection('SurveyResponses')
                 .doc(user.id)
                 .update(formattedData)
                 .then(() => {
                     console.log("Document successfully updated!");
-                    navigate('/rent/off-campus/step13');
+                    // Navigate to the next step (Step 14 or any other step)
+                    navigate('/rent/off-campus/step14');
                 })
                 .catch((error) => {
                     console.error("Error updating document: ", error);
@@ -75,9 +108,9 @@ const OffCampusHousingFormStep12 = () => {
     const handleAddEntry = () => {
         setFormData((prevData) => ({
             ...prevData,
-            activitiesHistory: [...prevData.activitiesHistory, {
-                organization: '',
-                title: '',
+            rentalHistory: [...prevData.rentalHistory, {
+                address: '',
+                monthlyRent: '',
                 startDate: '',
                 endDate: '',
                 present: false, // Add the "Present" checkbox status
@@ -87,64 +120,88 @@ const OffCampusHousingFormStep12 = () => {
 
     const handleDeleteEntry = (index) => {
         setFormData((prevData) => {
-            const updatedActivitiesHistory = [...prevData.activitiesHistory];
-            updatedActivitiesHistory.splice(index, 1);
+            const updatedRentalHistory = [...prevData.rentalHistory];
+            updatedRentalHistory.splice(index, 1);
             return {
                 ...prevData,
-                activitiesHistory: updatedActivitiesHistory,
+                rentalHistory: updatedRentalHistory,
             };
         });
     };
 
     const handleInputChange = (index, field, value) => {
         setFormData((prevData) => {
-            const updatedActivitiesHistory = [...prevData.activitiesHistory];
-            updatedActivitiesHistory[index][field] = value;
+            const updatedRentalHistory = [...prevData.rentalHistory];
+            updatedRentalHistory[index][field] = value;
 
             // If 'Present' checkbox is checked, clear the endDate value
             if (field === 'present' && value) {
-                updatedActivitiesHistory[index].endDate = 'Present';
+                updatedRentalHistory[index].endDate = 'Present';
             }
 
             return {
                 ...prevData,
-                activitiesHistory: updatedActivitiesHistory,
+                rentalHistory: updatedRentalHistory,
             };
         });
     };
 
-    console.log("Form Data:", formData);
-
     return (
         <div className="form-container" style={{ marginTop: '55px' }}>
-            <h2 className="step-title">Extracurricular Activities</h2>
-            <p className="step-description">Please Add Your Extracurricular Activities:</p>
+            <h2 className="step-title">Previous Tenant Experience</h2>
+            <p className="step-description">Please Add Your Previous Rental History:</p>
 
-            {Array.isArray(formData.activitiesHistory) && formData.activitiesHistory.map((entry, index) => (
-                <div key={index} className="activities-entry">
+            {Array.isArray(formData.rentalHistory) && formData.rentalHistory.map((entry, index) => (
+                <div key={index} className="rental-history-entry">
                     <div className="form-row">
-                        <label>Organization:</label>
+                        <label>Address:</label>
+                        <PlacesAutocomplete
+                            value={entry.address}
+                            onChange={(value) => handleAddressChange(value, index)}
+                            onSelect={(value) => handleAddressChange(value, index)}
+                            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
+                        >
+                            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                <div>
+                                    <input
+                                        {...getInputProps({
+                                            placeholder: 'Type your address...',
+                                            className: 'location-search-input',
+                                        })}
+                                    />
+                                    <div className="autocomplete-dropdown-container">
+                                        {loading && <div></div>}
+                                        {suggestions.map((suggestion) => (
+                                            <div
+                                                {...getSuggestionItemProps(suggestion, {
+                                                    style: {
+                                                        backgroundColor: suggestion.active ? '#a7a9ff' : '#fff',
+                                                    },
+                                                })}
+                                            >
+                                                {suggestion.description}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </PlacesAutocomplete>
+                        <label className="end-label">Monthly Rent:</label>
                         <input
                             type="text"
-                            value={entry.organization}
-                            onChange={(e) => handleInputChange(index, 'organization', e.target.value)}
-                        />
-                        <label className="end-label">Title:</label>
-                        <input
-                            type="text"
-                            value={entry.title}
-                            onChange={(e) => handleInputChange(index, 'title', e.target.value)}
+                            value={formatCurrency(entry.monthlyRent)}
+                            onChange={(e) => handleInputChange(index, 'monthlyRent', e.target.value)}
                         />
                         <button onClick={() => handleDeleteEntry(index)} className='end-label'> - </button>
                     </div>
                     <div className="form-row">
-                        <label>Start:</label>
+                        <label>Start Date:</label>
                         <input
                             type="date"
                             value={entry.startDate}
                             onChange={(e) => handleInputChange(index, 'startDate', e.target.value)}
                         />
-                        <label className="end-label">End:</label>
+                        <label className="end-label">End Date:</label>
                         {entry.present ? (
                             <React.Fragment>
                                 <span className="present-checkbox">Present</span>
@@ -179,7 +236,7 @@ const OffCampusHousingFormStep12 = () => {
                 <button onClick={handleAddEntry}>+ Add Another</button>
             </div>
 
-            <Link to="/rent/off-campus/step11">
+            <Link to="/rent/off-campus/step12">
                 <span className="back-button">{'<-'}</span>
             </Link>
 
@@ -195,4 +252,4 @@ const OffCampusHousingFormStep12 = () => {
     );
 };
 
-export default OffCampusHousingFormStep12;
+export default OffCampusHousingFormStep13;

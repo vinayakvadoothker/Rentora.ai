@@ -7,7 +7,7 @@ import './styles.css';
 const OffCampusHousingFormStep11 = () => {
     const { user } = useUser();
     const navigate = useNavigate();
-    const [errorMessage, setErrorMessage] = useState('');
+    const [errorMessage] = useState('');
     const [formData, setFormData] = useState({
         employmentHistory: [],
     });
@@ -36,6 +36,7 @@ const OffCampusHousingFormStep11 = () => {
     };
 
     const saveAnswer = () => {
+        // Validate dates before updating the document
         const isValid = formData.employmentHistory.every(entry =>
             validateDates(entry.startDate, entry.endDate, entry.present)
         );
@@ -59,7 +60,8 @@ const OffCampusHousingFormStep11 = () => {
                     console.error("Error updating document: ", error);
                 });
         } else {
-            setErrorMessage("Please ensure that Start Date and End Date are provided and that End Date is after Start Date for all entries, or set it to 'Present' if you are still working there");
+            // Display a popup or show an error message
+            alert("Please ensure that Start Date and End Date are provided and that End Date is after Start Date for all entries, or set it to 'Present' if you are still working there");
         }
     };
 

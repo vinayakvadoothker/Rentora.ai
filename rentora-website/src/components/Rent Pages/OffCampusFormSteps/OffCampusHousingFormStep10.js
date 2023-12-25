@@ -7,8 +7,6 @@ import './styles.css'; // Import the CSS file
 const OffCampusHousingFormStep10 = () => {
   const { user } = useUser();
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState('');
-  const [setShowMessagePopup] = useState(false); // Added state for popup message
   const [formData, setFormData] = useState({
     startDate: '',
     endDate: '',
@@ -49,28 +47,25 @@ const OffCampusHousingFormStep10 = () => {
         })
         .catch((error) => {
           console.error("Error updating document: ", error);
+          // Show error message using alert
+          alert('An error occurred while saving. Please try again.');
         });
-    } else {
-      // Show error message popup
-      setShowMessagePopup(true);
     }
   };
 
   const validateDates = (start, end) => {
     // Validate if start date is before end date
     if (start && end && new Date(start) > new Date(end)) {
-      setErrorMessage("End date must be after the Start date");
+      alert("End date must be after the Start date");
       return false;
     }
 
     // Validate if both dates are filled
     if (!start || !end) {
-      setErrorMessage("Please enter both Start and End dates");
+      alert("Please enter both Start and End dates");
       return false;
     }
 
-    // Clear error message if dates are valid
-    setErrorMessage('');
     return true;
   };
 
@@ -87,13 +82,7 @@ const OffCampusHousingFormStep10 = () => {
           id="startDate"
           className="input-field"
           value={formData.startDate}
-          onChange={(e) => {
-            setFormData((prevData) => ({
-              ...prevData,
-              startDate: e.target.value,
-            }));
-            setErrorMessage('');
-          }}
+          onChange={(e) => setFormData((prevData) => ({ ...prevData, startDate: e.target.value }))}
         />
       </div>
 
@@ -105,13 +94,7 @@ const OffCampusHousingFormStep10 = () => {
           id="endDate"
           className="input-field"
           value={formData.endDate}
-          onChange={(e) => {
-            setFormData((prevData) => ({
-              ...prevData,
-              endDate: e.target.value,
-            }));
-            setErrorMessage('');
-          }}
+          onChange={(e) => setFormData((prevData) => ({ ...prevData, endDate: e.target.value }))}
         />
       </div>
 
@@ -120,8 +103,6 @@ const OffCampusHousingFormStep10 = () => {
         <span className="back-button">{'<-'}</span>
       </Link>
 
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-
       {/* Button to submit the form and navigate to the next step */}
       <button
         className="next-button"
@@ -129,8 +110,6 @@ const OffCampusHousingFormStep10 = () => {
       >
         Next
       </button>
-
-
     </div>
   );
 };

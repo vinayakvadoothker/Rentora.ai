@@ -14,9 +14,6 @@ const OffCampusHousingFormStep3 = () => {
     email: user?.email || '',
   });
 
-  // Initialize state for email validation
-  const [isValidEmail, setIsValidEmail] = useState(true);
-
   useEffect(() => {
     // Fetch and set the saved data when the component mounts
     if (user) {
@@ -38,13 +35,10 @@ const OffCampusHousingFormStep3 = () => {
     const isValid = emailRegex.test(formData.email);
 
     if (!isValid) {
-      // Set validation error
-      setIsValidEmail(false);
+      // Display validation error using alert
+      alert("Please enter a valid email address.");
       return;
     }
-
-    // Clear validation error
-    setIsValidEmail(true);
 
     // Save the answer for Step 3
     const newFormData = {
@@ -81,11 +75,10 @@ const OffCampusHousingFormStep3 = () => {
       <input
         type="text"
         placeholder="Email"
-        className={`input-field ${!isValidEmail ? 'invalid-email' : ''}`}
+        className="input-field"
         value={formData.email}
         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
       />
-      {!isValidEmail && <p className="validation-error">Please enter a valid email address.</p>}
 
       {/* Back button to navigate to the previous step */}
       <Link to="/rent/off-campus/step2">

@@ -137,7 +137,6 @@ const OffCampusHousingFormStep9 = () => {
     'Architectural Engineering',
     'Urban Design',
     'Environmental Policy',
-    'Public Relations',
     'Art Therapy',
     'Biomedical Physics',
     'Political Philosophy',

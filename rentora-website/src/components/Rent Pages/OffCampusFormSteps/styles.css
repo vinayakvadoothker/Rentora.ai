@@ -117,7 +117,7 @@ label {
 }
 
 .react-datepicker__day--selected {
-  background-color: #2E2F5B;
+  background-color: #8183ff;
   color: #EBE1E9;
 }
 
@@ -161,4 +161,75 @@ label {
 .add-another-container {
   text-align: left;
   margin-bottom: 10px; /* Adjust as needed */
+  margin-top: 10px; /* Adjust as needed */
 }
+
+.autocomplete-dropdown-container {
+  position: absolute;
+  width: 200px; /* Set your desired width */
+  max-height: 150px; /* Set the maximum height for the dropdown */
+  overflow-y: auto;
+  z-index: 1;
+  border-radius: 8px; /* Add border-radius for curved edges */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+}
+
+.location-search-input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.autocomplete-dropdown-container div {
+  font-size: 14px;
+  padding: 8px;
+  cursor: pointer; /* Set the cursor to pointer */
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Adjust the gap as needed */
+}
+
+.name-relation-group,
+.input-group-phone-email {
+  display: flex;
+  gap: 10px; /* Adjust the gap as needed */
+}
+
+.name-relation-group label,
+.input-group-phone-email label {
+  text-align: right;
+  margin-right: 10px;
+}
+
+.name-relation-group input,
+.name-relation-group select,
+.input-group-phone-email input {
+  flex: 1;
+  width: 100%;
+}
+
+.input-group-phone-email {
+  align-items: flex-start; /* Align items to the top */
+}
+
+.input-group-phone-email label {
+  text-align: right;
+  margin-right: 10px;
+}
+
+.input-group-phone-email input {
+  width: 100%;
+}
+
+/* Additional margin for the "Add Another" button */
+.add-another-container {
+  margin-top: 15px;
+}
+
+/* Additional margin for the error message */
+.error-message {
+  margin-top: 15px;
+}
+

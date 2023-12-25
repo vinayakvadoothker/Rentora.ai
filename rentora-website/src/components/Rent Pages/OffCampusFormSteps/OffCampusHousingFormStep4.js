@@ -14,9 +14,6 @@ const OffCampusHousingFormStep4 = () => {
     phone: user?.phoneNumber || '',
   });
 
-  // Initialize state for phone validation
-  const [isValidPhone, setIsValidPhone] = useState(true);
-
   useEffect(() => {
     // Fetch and set the saved data when the component mounts
     if (user) {
@@ -38,13 +35,10 @@ const OffCampusHousingFormStep4 = () => {
     const isValid = phoneRegex.test(formData.phone);
 
     if (!isValid) {
-      // Set validation error
-      setIsValidPhone(false);
+      // Display validation error using alert
+      alert("Please enter a valid phone number with 10 digits.");
       return;
     }
-
-    // Clear validation error
-    setIsValidPhone(true);
 
     // Save the answer for Step 4
     const newFormData = {
@@ -72,6 +66,17 @@ const OffCampusHousingFormStep4 = () => {
     navigate('/rent/off-campus/step5');
   };
 
+  const handleInputChange = (e) => {
+    // Allow only numbers to be typed
+    const inputValue = e.target.value;
+    if (/^[0-9]*$/.test(inputValue)) {
+      setFormData((prevData) => ({
+        ...prevData,
+        phone: inputValue,
+      }));
+    }
+  };
+
   return (
     <div className="form-container">
       <h2 className="step-title">Confirm Phone Number</h2>
@@ -81,11 +86,10 @@ const OffCampusHousingFormStep4 = () => {
       <input
         type="text"
         placeholder="Phone Number"
-        className={`input-field ${!isValidPhone ? 'invalid-phone' : ''}`}
+        className="input-field"
         value={formData.phone}
-        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+        onChange={handleInputChange}
       />
-      {!isValidPhone && <p className="validation-error">Please enter a valid phone number (10 digits).</p>}
 
       {/* Back button to navigate to the previous step */}
       <Link to="/rent/off-campus/step3">
