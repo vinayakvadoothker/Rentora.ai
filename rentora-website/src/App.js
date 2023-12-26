@@ -10,6 +10,8 @@ import ForAllPage from './components/Rent Pages/ForAllPage';
 import OffCampusPage from './components/Rent Pages/OffCampusPage';
 import VenturePage from './components/VenturePage'; // Import VenturePage component
 import ProfilePage from './components/ProfilePage'; // Import ProfilePage component
+import GuarantorForm from './components/Rent Pages/OffCampusFormSteps/GuarantorForm'; // Import GuarantorForm component
+
 import './App.css';
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
@@ -114,6 +116,7 @@ const Home = () => {
 };
 
 const App = () => {
+  
   return (
     <div className="app-container">
       <ClerkProvider publishableKey={clerkPubKey} googleMapsApiKey={googleMapsApiKey}>
@@ -125,6 +128,7 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/onboarding" element={<OnboardingPage />} />
           <Route path="/buy" element={<BuyPage />} />
+          <Route path="/guarantor/:userid" element={<GuarantorForm />} />
           <Route
             path="/rent/*"
             element={
@@ -144,13 +148,19 @@ const App = () => {
             path="*"
             element={<SignedIn><Navigate to="/dashboard" replace /></SignedIn>}
           />
-
-
         </Routes>
         <Routes>
-          <Route
+        <Route
             path="*"
-            element={<SignedOut><Navigate to="/onboarding" replace /></SignedOut>}
+            element={
+              <SignedOut>
+                {({ location }) =>
+                  location.pathname.startsWith("/guarantor/") || location.pathname.startsWith("/onboarding") ? null : (
+                    <Navigate to="/onboarding" replace />
+                  )
+                }
+              </SignedOut>
+            }
           />
         </Routes>
         <Routes>

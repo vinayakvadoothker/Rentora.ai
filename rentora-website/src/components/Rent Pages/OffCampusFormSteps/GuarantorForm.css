@@ -1,0 +1,36 @@
+/* Global styles for the form container */
+.form-container {
+    max-width: 1400px; /* Adjust the max-width as needed */
+    margin: auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden; /* Add this line to prevent overflow */
+  }
+  
+  /* Styles for input fields */
+  .input-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  /* Styles for input groups in form rows */
+  .input-group {
+    flex: 0 0 calc(33.33% - 20px);
+    margin-bottom: 10px; /* Adjusted margin-bottom */
+  }
+  
+  /* Styles for form rows */
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0px; /* Adjusted margin-bottom */
+  }
+  
