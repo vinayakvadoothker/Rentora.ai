@@ -58,7 +58,7 @@ const OffCampusHousingFormStep6 = () => {
     }
   };
 
-  const isNextButtonDisabled = formData.college === 'Select A College'; // Disable if the default option is selected
+  const isNextButtonDisabled = formData.college === '' || formData.college === 'Select a College';
 
   return (
     <div className="form-container">
@@ -78,7 +78,6 @@ const OffCampusHousingFormStep6 = () => {
           setErrorMessage(''); // Clear error message when the user makes a selection
         }}
       >
-        <option value="">Select a College</option>
         <option value="Cowell College">Cowell College</option>
         <option value="Stevenson College">Stevenson College</option>
         <option value="Merrill College">Merrill College</option>

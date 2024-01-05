@@ -88,7 +88,6 @@ const OffCampusHousingFormStep1 = () => {
                     onChange={(e) => setFormData({ ...formData, schoolName: e.target.value })}
                 >
                     <option value="UC Santa Cruz">UC Santa Cruz</option>
-                    <option value="UCLA">UCLA</option>
                     {/* Add more options as needed */}
                 </select>
 

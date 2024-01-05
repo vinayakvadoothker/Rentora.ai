@@ -61,6 +61,7 @@ const GuarantorForm = () => {
             supervisorName: '',
             supervisorPhone: '',
         },
+        guarantorFormFilled: false, // Add the boolean field
     });
 
     const [formAlreadyFilled, setFormAlreadyFilled] = useState(false);
@@ -143,6 +144,7 @@ const GuarantorForm = () => {
             .doc(userid)
             .update({
                 ...formData,
+                guarantorFormFilled: true, // Set the boolean field to true when the form is submitted
             })
             .then(() => {
                 // Handle successful submission (e.g., show a confirmation message)
