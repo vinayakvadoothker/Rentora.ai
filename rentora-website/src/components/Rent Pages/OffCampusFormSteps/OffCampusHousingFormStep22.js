@@ -11,7 +11,6 @@ const OffCampusHousingFormStep22 = () => {
     const [guarantorFormFilled, setGuarantorFormFilled] = useState(false);
 
     useEffect(() => {
-        // Fetch and check if the guarantor form is filled when the component mounts
         const fetchData = async () => {
             if (user) {
                 try {
@@ -30,6 +29,22 @@ const OffCampusHousingFormStep22 = () => {
         fetchData();
     }, [user]);
 
+    const handleSubmit = async () => {
+        try {
+            // Save the offcampusformdone boolean as true
+            await db.collection('SurveyResponses').doc(user.id).update({
+                offcampusformdone: true,
+            });
+
+            // Navigate to the next step or any other route
+            navigate('/onboarding');
+        } catch (error) {
+            console.error('Error saving form data:', error);
+            // Handle error (e.g., show an error message)
+            alert('Error submitting form. Please try again.');
+        }
+    };
+
     return (
         <div className="form-container" style={{ marginTop: '35px', width: '1000px' }}>
             <h2 className="step-title">Guarantor Confirmation</h2>
@@ -44,7 +59,7 @@ const OffCampusHousingFormStep22 = () => {
             </div>
 
             {guarantorFormFilled && (
-                <button className="submit-button" onClick={() => navigate('/onboarding')}>
+                <button className="submit-button" onClick={handleSubmit}>
                     Submit
                 </button>
             )}

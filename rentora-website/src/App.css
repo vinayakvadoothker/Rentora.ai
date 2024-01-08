@@ -115,7 +115,16 @@ a {
   bottom: 20px; /* Adjust the distance from the bottom */
   left: 50%;
   transform: translateX(-50%);
+  display: flex;
+  justify-content: center; /* Center text horizontally */
+  align-items: center; /* Center text vertically */
 }
+
+/* Add hover effect */
+.get-started-btn:hover {
+  background: #3F40A2; /* Change color on hover */
+}
+
 
 
 .close-button {

@@ -13,6 +13,7 @@ const OffCampusHousingFormStep2 = () => {
   const [formData, setFormData] = useState({
     firstName: user?.firstName || '',
     lastName: user?.lastName || '',
+    middleName: user?.middleName || '',
   });
 
   useEffect(() => {
@@ -35,6 +36,7 @@ const OffCampusHousingFormStep2 = () => {
     const newFormData = {
       firstName: formData.firstName !== undefined ? formData.firstName : '',
       lastName: formData.lastName !== undefined ? formData.lastName : '',
+      middleName: formData.middleName !== undefined ? formData.middleName : '',
       // Add more fields as needed
     };
 
@@ -63,13 +65,20 @@ const OffCampusHousingFormStep2 = () => {
       <h2 className="step-title">Confirm Name</h2>
       <p className="step-description">Confirm This Is Your Legal Name*</p>
 
-      {/* Input fields for first name and last name with default values */}
+      {/* Input fields for first name, middle name, and last name with default values */}
       <input
         type="text"
         placeholder="First Name"
         className="input-field"
         value={formData.firstName}
         onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+      />
+      <input
+        type="text"
+        placeholder="Middle Name (Optional)"
+        className="input-field"
+        value={formData.middleName}
+        onChange={(e) => setFormData({ ...formData, middleName: e.target.value })}
       />
       <input
         type="text"
@@ -80,7 +89,7 @@ const OffCampusHousingFormStep2 = () => {
       />
 
       {/* Back button to navigate to the previous step */}
-      <Link to="/rent/off-campus">
+      <Link to="/rent/off-campus/step1">
         <span className="back-button">{'<-'}</span>
       </Link>
 

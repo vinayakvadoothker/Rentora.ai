@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {SignedOut, SignIn, useClerk } from "@clerk/clerk-react";
+import {SignedOut, SignUp, useClerk } from "@clerk/clerk-react";
 import { useNavigate } from 'react-router-dom';
 
 const SignupSignInPopup = ({ onClose }) => {
@@ -29,8 +29,8 @@ const SignupSignInPopup = ({ onClose }) => {
           X
         </button>
           <div className="clerk-signin-container">
-              <SignIn>
-              </SignIn>
+              <SignUp>
+              </SignUp>
           </div>
       </div>
     </div>

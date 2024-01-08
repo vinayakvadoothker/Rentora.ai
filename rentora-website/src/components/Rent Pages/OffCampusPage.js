@@ -23,6 +23,7 @@ import OffCampusHousingFormStep19 from './OffCampusFormSteps/OffCampusHousingFor
 import OffCampusHousingFormStep20 from './OffCampusFormSteps/OffCampusHousingFormStep20';
 import OffCampusHousingFormStep21 from './OffCampusFormSteps/OffCampusHousingFormStep21';
 import OffCampusHousingFormStep22 from './OffCampusFormSteps/OffCampusHousingFormStep22';
+import OffCampusHousingDashboard from './OffCampusFormSteps/OffCampusHousingDashboard';
 
 
 
@@ -44,7 +45,8 @@ const OffCampusPage = () => {
     return (
       <div>
         <Routes>
-          <Route path="/" element={<OffCampusHousingFormStep1 onComplete={completeForm} />} />
+          <Route path="/" element={<OffCampusHousingDashboard onComplete={completeForm} />} />
+          <Route path="step1" element={<OffCampusHousingFormStep1 onComplete={completeForm} />} />
           <Route path="step2" element={<OffCampusHousingFormStep2 onComplete={completeForm} />} />
           <Route path="step3" element={<OffCampusHousingFormStep3 onComplete={completeForm} />} />
           <Route path="step4" element={<OffCampusHousingFormStep4 onComplete={completeForm} />} />
