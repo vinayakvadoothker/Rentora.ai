@@ -13,6 +13,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  overflow-y: auto; /* Add overflow-y property to enable scrolling */
+  max-height: 80vh; /* Set a maximum height to limit the container size */
 }
 
 /* Styles for step titles */
@@ -232,4 +234,5 @@ label {
 .error-message {
   margin-top: 15px;
 }
+
 
