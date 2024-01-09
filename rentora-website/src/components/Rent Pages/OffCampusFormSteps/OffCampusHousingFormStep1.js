@@ -71,7 +71,7 @@ const OffCampusHousingFormStep1 = () => {
         }
 
         // Navigate to the next step
-        navigate('step2');
+        navigate('/rent/off-campus/step2');
     };
 
     return (

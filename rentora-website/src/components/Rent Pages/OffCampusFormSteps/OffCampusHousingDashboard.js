@@ -54,9 +54,7 @@ const OffCampusHousingDashboard = () => {
 
             {/* Your listings or dashboard content goes here */}
 
-            <Link to="/rent/off-campus/step1">
-                <span className="back-button">{'<-'}</span>
-            </Link>
+
         </div>
     );
 };
